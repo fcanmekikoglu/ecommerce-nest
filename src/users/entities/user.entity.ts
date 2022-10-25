@@ -29,7 +29,7 @@ export class User extends Model {
   lastName: string;
 
   @Column
-  phone: number;
+  phone: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(Role)),

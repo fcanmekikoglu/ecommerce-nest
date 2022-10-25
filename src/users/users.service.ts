@@ -12,8 +12,14 @@ export class UsersService {
   ) {}
 
   create(createUserDto: CreateUserDto) {
-    const { email, password } = createUserDto;
-    return this.userModel.create({ email, password });
+    const { email, password, firstName, lastName, phone } = createUserDto;
+    return this.userModel.create({
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+    });
   }
 
   findAll() {
