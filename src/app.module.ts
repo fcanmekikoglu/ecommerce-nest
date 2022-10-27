@@ -3,8 +3,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth/guards/roles.guard';
 dotenv.config();
 
 @Module({
@@ -23,11 +21,6 @@ dotenv.config();
     AuthModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}

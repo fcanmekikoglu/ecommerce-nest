@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -31,7 +31,11 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    return await this.userModel.findOne({ where: { email } });
+    const user = await this.userModel.findOne({ where: { email } });
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

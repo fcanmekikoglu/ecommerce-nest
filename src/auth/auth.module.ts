@@ -5,9 +5,9 @@ import * as dotenv from 'dotenv';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { RolesGuard } from './guards/roles.guard';
 dotenv.config();
 
 @Module({
@@ -20,6 +20,6 @@ dotenv.config();
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard],
 })
 export class AuthModule {}
