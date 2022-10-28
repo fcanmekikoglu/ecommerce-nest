@@ -11,8 +11,9 @@ export class UsersService {
     private readonly userModel: typeof User,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    const { email, password, firstName, lastName, phone } = createUserDto;
+  create(input) {
+    console.log(input);
+    const { email, password, firstName, lastName, phone } = input;
     return this.userModel.create({
       email,
       password,
@@ -32,10 +33,10 @@ export class UsersService {
 
   async findByEmail(email: string) {
     const user = await this.userModel.findOne({ where: { email } });
-    if (!user) {
-      throw new NotFoundException();
+    if (user) {
+      return user;
     }
-    return user;
+    return null;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
