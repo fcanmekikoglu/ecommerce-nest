@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { AreYouSure } from './dto/remove-user-check.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -38,11 +39,17 @@ export class UsersService {
     return null;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    console.log(id);
+    await this.userModel.update(updateUserDto, { where: { id } });
+    return this.findById(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async removeUser(id: number, areyousure: AreYouSure) {
+    if (areyousure.areyousure === false) {
+      return null;
+    }
+    await this.userModel.destroy({ where: { id } });
+    return 'Profile deleted';
   }
 }

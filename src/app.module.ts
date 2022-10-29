@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { UserAddressModule } from './user-address/user-address.module';
 import * as dotenv from 'dotenv';
+import { ProfileController } from './profile.controller';
 dotenv.config();
 
 @Module({
@@ -22,7 +23,7 @@ dotenv.config();
     AuthModule,
     UserAddressModule,
   ],
-  controllers: [],
+  controllers: [ProfileController],
   providers: [],
 })
 export class AppModule {}
