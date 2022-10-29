@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { UserAddressModule } from './user-address/user-address.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,6 +20,7 @@ dotenv.config();
     }),
     UsersModule,
     AuthModule,
+    UserAddressModule,
   ],
   controllers: [],
   providers: [],

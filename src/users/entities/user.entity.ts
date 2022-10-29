@@ -1,11 +1,13 @@
 import {
   Column,
   DataType,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { Role } from 'src/auth/role.enum';
+import { UserAddress } from 'src/user-address/entities/user-address.entity copy';
 
 @Table({ tableName: 'users' })
 export class User extends Model {
@@ -36,4 +38,7 @@ export class User extends Model {
     defaultValue: Role.User,
   })
   roles: Role[];
+
+  @HasMany(() => UserAddress)
+  address: UserAddress[];
 }
