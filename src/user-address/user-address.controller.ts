@@ -17,32 +17,32 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class UserAddressController {
   constructor(private readonly userAddressService: UserAddressService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  create(@Body() createUserAddressDto: CreateUserAddressDto) {
-    return this.userAddressService.create(createUserAddressDto);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post()
+  // create(@Body() createUserAddressDto: CreateUserAddressDto) {
+  //   //return this.userAddressService.create(createUserAddressDto);
+  // }
 
-  @Get()
-  findAll() {
-    return this.userAddressService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.userAddressService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userAddressService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.userAddressService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateUserAddressDto: UpdateUserAddressDto,
-  ) {
-    return this.userAddressService.update(+id, updateUserAddressDto);
-  }
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateUserAddressDto: UpdateUserAddressDto,
+  // ) {
+  //   return this.userAddressService.update(+id, updateUserAddressDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userAddressService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.userAddressService.remove(+id);
+  // }
 }

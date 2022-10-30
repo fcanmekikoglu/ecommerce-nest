@@ -1,11 +1,11 @@
 export class CreateUserAddressDto {
-  userId: string;
+  address_title: string;
   line1: string;
   line2: string;
   city: string;
   country: string;
-  postal_code: string;
+  postal_code: number;
   phone_mobile: string;
-  phone_work: string;
+  phone_work?: string;
   email: string;
 }

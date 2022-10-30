@@ -17,6 +17,8 @@ export class UserAddress extends Model {
     defaultValue: DataType.UUIDV4,
   })
   id: string;
+  @Column
+  address_title: string;
 
   @Column
   line1: string;
@@ -31,13 +33,13 @@ export class UserAddress extends Model {
   country: string;
 
   @Column
-  postalCode: number;
+  postal_code: number;
 
   @Column
   phone_mobile: string;
 
   @Column
-  phone_work: string;
+  phone_work?: string;
 
   @Column
   email: string;
