@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { UsersService } from 'src/users/users.service';
 import { CreateUserAddressDto } from './dto/create-user-address.dto';
 import { UpdateUserAddressDto } from './dto/update-user-address.dto';
 import { UserAddress } from './entities/user-address.entity copy';
@@ -9,7 +10,19 @@ export class UserAddressService {
   constructor(
     @InjectModel(UserAddress)
     private readonly userAddressModel: typeof UserAddress,
+    private readonly userService: UsersService,
   ) {}
+
+  async checkAddressOwnership(user_id: string, address_id: string) {
+    const address = await this.userAddressModel.findOne({
+      where: { id: address_id },
+    });
+    const { id, userId } = address;
+    if (user_id === userId) {
+      return true;
+    }
+    return false;
+  }
 
   create(userId: string, createUserAddressDto: CreateUserAddressDto) {
     const {
@@ -42,8 +55,8 @@ export class UserAddressService {
     return this.userAddressModel.findAll({ where: { userId } });
   }
 
-  findAll() {
-    return `This action returns all userAddress`;
+  async findAll() {
+    return await this.userAddressModel.findAll();
   }
 
   async updateAddress(id: string, updateUserAddressDto: UpdateUserAddressDto) {

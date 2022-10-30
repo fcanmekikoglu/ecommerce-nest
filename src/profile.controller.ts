@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   Request,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
@@ -68,23 +69,42 @@ export class ProfileController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Patch('address')
-  updateAddresses(
+  async updateAddresses(
     @Request() req,
     @Body() updateUserAddressDto: UpdateUserAddressDto,
   ) {
-    return this.addressService.updateAddress(
+    const ownership = await this.addressService.checkAddressOwnership(
+      req.user.id,
       updateUserAddressDto.id,
-      updateUserAddressDto,
     );
+    if (ownership == true) {
+      return this.addressService.updateAddress(
+        updateUserAddressDto.id,
+        updateUserAddressDto,
+      );
+    }
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.User)
   @Delete('address')
-  deleteAddress(@Request() req, @Body() deleteAddressDto: DeleteAddressDto) {
-    return this.addressService.deleteAddress(
-      deleteAddressDto.id,
-      deleteAddressDto.areyousure,
-    );
+  async deleteAddress(
+    @Request() req,
+    @Body() deleteAddressDto: DeleteAddressDto,
+  ) {
+    try {
+      const ownership = await this.addressService.checkAddressOwnership(
+        req.user.id,
+        deleteAddressDto.id,
+      );
+      if (ownership === true) {
+        return this.addressService.deleteAddress(
+          deleteAddressDto.id,
+          deleteAddressDto.areyousure,
+        );
+      }
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 }
